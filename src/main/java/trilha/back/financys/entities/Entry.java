@@ -1,4 +1,4 @@
-package financeControl;
+package trilha.back.financys.entities;
 
 public class Entry {
     private Long id;
@@ -66,7 +66,7 @@ public class Entry {
         this.date = date;
     }
 
-    public boolean getPaid() {
+    public Boolean getPaid() {
         return paid;
     }
 
@@ -75,7 +75,7 @@ public class Entry {
     }
 
     public Entry(Long id, long categoryId, String name, String description, String type,
-            String amount, String date, Boolean paid) {
+                 String amount, String date, Boolean paid) {
         this.id = id;
         this.categoryId = categoryId;
         this.name = name;
@@ -98,7 +98,7 @@ public class Entry {
                 ", type = " + type +
                 ", amount = " + amount +
                 ", date = " + date +
-                ", paid = " + paid + " }";
+                ", paid = " + paid + " } \n";
     }
 
 }

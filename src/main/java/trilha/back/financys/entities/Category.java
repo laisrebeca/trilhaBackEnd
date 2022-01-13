@@ -1,4 +1,4 @@
-package financeControl;
+package trilha.back.financys.entities;
 
 public class Category {
     private Long id;
@@ -44,6 +44,7 @@ public class Category {
         return "Category { " +
                 "id = " + id +
                 ", name = " + name +
-                ", description = " + description + " }";
+                ", description = " + description + " } \n";
     }
 }
+

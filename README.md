@@ -67,3 +67,47 @@ Como o próprio nome diz, trata-se de uma relação de receber algo pré-existen
 Referências:
 
 - https://blog.betrybe.com/tecnologia/poo-programacao-orientada-a-objetos/
+
+
+# Desafio 3 
+
+
+# 📑 Protocolo de Transferência de Hipertexto (HyperTextTransferProtocol) **HTTP**
+
+## ✔ O que é o protocolo de comunicação HTTP e como ele funciona:
+
+É a base de comunicação de toda Internet, através do HTTP conseguimos de maneira mais fácil encontrar sites e conteúdos que tragam hiperlinks é a troca de dados pela WEB entre o cliente ou servidor. Que funciona Basicamente o cliente usa o navegador e manda uma requisição pelo HTTP uma mensagem, ele transforma esse dado para que o servidor entenda e retorna novamente de forma que o cliente também entenda, ele é o intermediador das partes.
+
+![HTTP](img/HTTP.png)
+
+## ✔ O que é REST, e qual é a sua relação com o protocolo HTTP:
+
+REST, em português, significa “Transferência de Estado Representacional” e são varias ações que pode excutar através do Rest, Get, Put, Post, Delete esses são os verbos que transfere a requisição do cliente pelo HTTP e o Rest que promove essa transformação de dados, quando disse acima o HTTP transforma o dado é através do Rest. A ideia geral é a seguinte: seu serviço vai prover uma url base e os verbos pelo HTTP vão indicar qual ação está sendo requisitada pelo consumidor do serviço.
+
+## ✔ O que é Web API, e qual é a sua relação com REST:
+
+As APIs (Application Programming Interfaces) em português Interfaces de programação de aplicativos, ele facilita os desenvolvedores a programar com mais facilidade, disponibilizando interfaces fazendo o que seria mais complexo bem simples. "Às vezes, as APIs são descritas como um contrato entre um provedor e um usuário de informações, estabelecendo o conteúdo exigido pelo consumidor (a chamada) e o conteúdo exigido pelo produtor (a resposta)." artigo Red Hat publicado em 8 de maio de 2020.
+API e o REST melhor API REST é uma interface de programação de aplicações (API) que está em conformidade com as restrições do estilo de arquitetura Rest, permitindo a interação com serviços web, é como se a aplicação (API) se comunica com Internet através Rest.
+
+## Liste todos os métodos de solicitações HTTP utilizados pelo padrão REST e suas respectivas finalidades:
+
+- GET: Retorna uma informação
+- POST: Criação
+- PUT: Salvar
+- Delete: Excluir
+- TRACE: Retorna a requisição se houve alteração
+- PATCH: Atualiza uma parte
+- CONNECT: Converte requisição de conexão
+- HEAD: Retorna o cabeçalho de uma resposta.
+
+## ✔ O que é Swagger:
+
+É um framework, uma estrutura para as API's, uma maneira de interpretação flexível tanto para os desenvolvedores quanto para a maquina, isso economiza muito mais trabalho e produtividade.
+
+Referências:
+
+- https://www.devmedia.com.br/servicos-restful-verbos-http/37103
+- https://developer.mozilla.org/pt-BR/docs/Learn/JavaScript/Client-side_web_APIs/Introduction
+- https://www.redhat.com/pt-br/topics/api/what-is-a-rest-api
+- https://dev.to/rs_marinheiro/documente-sua-api-springboot-com-swagger-cni
+
