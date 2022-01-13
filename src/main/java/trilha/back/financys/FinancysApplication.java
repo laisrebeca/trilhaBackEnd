@@ -2,32 +2,17 @@ package trilha.back.financys;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import trilha.back.financys.entities.Category;
-import trilha.back.financys.entities.Entry;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+@EntityScan(basePackages = {"trilha.back.financys.entities"})
+@EnableJpaRepositories(basePackages = {"trilha.back.financys.repository"})
+@ComponentScan(basePackages = {"trilha.back.financys.controllers"})
 @SpringBootApplication
 public class FinancysApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FinancysApplication.class, args);
-
-//		Category category1 = new Category();
-//		category1.setId(4l);
-//		category1.setName("Pagamento");
-//		category1.setDescription("Pagamento de Fatura de Cartão");
-//		System.out.println(category1.toString());
-//
-//		Entry entry1 = new Entry();
-//		entry1.setId(8l);
-//		entry1.setCategoryId(6l);
-//		entry1.setName("Shopping");
-//		entry1.setDescription("Lazer");
-//		entry1.setType("expense");
-//		entry1.setAmount("4509,85");
-//		entry1.setDate("30/12/2021");
-//		entry1.setPaid(true);
-//		System.out.println(entry1.toString());
-
 	}
-
 }

@@ -1,14 +1,34 @@
 package trilha.back.financys.entities;
 
-public class Entry {
+import javax.persistence.*;
+
+
+@Entity
+@Table(name = "ENTRY")
+public class Entry  {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Column(name = "id", nullable = false)
     private Long id;
-    private Long categoryId;
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
+    @Column(name = "description", nullable = false, length = 100)
     private String description;
+    @Column(name = "type", nullable = false, length = 15)
     private String type;
+    @Column(name = "amount", nullable = false)
     private String amount;
+    @Column(name = "date", nullable = false, length = 10)
     private String date;
+    @Column(name = "paid", nullable = false)
     private Boolean paid;
+
+
+    @ManyToOne
+    @JoinColumn(name = "category", referencedColumnName = "id")
+    private Category category;
 
     public Long getId() {
         return id;
@@ -16,14 +36,6 @@ public class Entry {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
     }
 
     public String getName() {
@@ -74,16 +86,25 @@ public class Entry {
         this.paid = paid;
     }
 
-    public Entry(Long id, long categoryId, String name, String description, String type,
-                 String amount, String date, Boolean paid) {
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Entry(Long id, String name, String description, String type,
+                 String amount, String date, Boolean paid, Category category) {
         this.id = id;
-        this.categoryId = categoryId;
         this.name = name;
         this.description = description;
         this.type = type;
         this.amount = amount;
         this.date = date;
         this.paid = paid;
+        this.category = category;
+
     }
 
     public Entry() {
@@ -92,7 +113,6 @@ public class Entry {
     @Override
     public String toString() {
         return "Entry { " + "id = " + id +
-                ", categoryId = " + categoryId +
                 ", name = " + name +
                 ", description = " + description +
                 ", type = " + type +

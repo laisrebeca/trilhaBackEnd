@@ -1,33 +1,54 @@
 package trilha.back.financys.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import trilha.back.financys.entities.Category;
-import java.util.ArrayList;
-import java.util.List;
+import trilha.back.financys.repository.CategoryRepository;
 
+import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping ("/category")
+@RequestMapping("category")
 public class CategoryController {
-    private final List<Category> list = new ArrayList<>();
 
-      @GetMapping("/read")
-        public ResponseEntity<List<Category>> read() {
-          return  ResponseEntity.ok().body(list);
-      }
+    private CategoryRepository repository;
 
+    @Autowired
+    CategoryController (CategoryRepository categoryRepository) {
+        this.repository = categoryRepository;
+    }
 
-      @PostMapping("/create")
-      public ResponseEntity<List<Category>> create(@RequestBody Category category) {
-          Category category1 = new Category();
-          category1.setId(category.getId());
-          category1.setName(category.getName());
-          category1.setDescription(category.getDescription());
-          list.add(category1);
-          return ResponseEntity.status(HttpStatus.CREATED).body(list);
-      }
+    @PostMapping("/create")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Category create(@RequestBody Category category){
+        return repository.save(category);
+    }
+    @GetMapping(path = {"/read"})
+    public List findAll(){
+        return repository.findAll();
+    }
 
+    @GetMapping(path = {"/read/{id}"})
+    public Optional<Category> findById(@PathVariable("id") Long id) {
+        return repository.findById(id);
+    }
+    @PutMapping(value="/update/{id}")
+    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody Category category) {
+        return repository.findById(id)
+                .map(record -> {
+                    record.setId(category.getId());
+                    record.setName(category.getName());
+                    record.setDescription(category.getDescription());
+                    Category updated = repository.save(record);
+                    return ResponseEntity.ok().body(updated);})
+                    .orElse(ResponseEntity.notFound().build());
+    }
 
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable("id") Long id) {
+        repository.deleteById(id);
+    }
 }

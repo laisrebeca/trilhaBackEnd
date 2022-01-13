@@ -1,36 +1,64 @@
 package trilha.back.financys.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import trilha.back.financys.entities.Entry;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import trilha.back.financys.repository.EntryRepository;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/entry")
+@RequestMapping("entry")
 public class EntryController {
-    private final List<Entry> list = new ArrayList<>();
-      @GetMapping("/read")
-      public ResponseEntity<List<Entry>> read(){
-        Collections.sort(list, Comparator.comparing(Entry::getDate));
-        return ResponseEntity.ok().body(list);
-      }
-      @PostMapping("/create")
-      public ResponseEntity<List<Entry>>create(@RequestBody Entry entry) {
-        Entry entry1 = new Entry();
-        entry1.setId(entry.getId());
-        entry1.setName(entry.getName());
-        entry1.setDescription(entry.getDescription());
-        entry1.setType(entry.getType());
-        entry1.setAmount(entry.getAmount());
-        entry1.setDate(entry.getDate());
-        entry1.setPaid(entry.getPaid());
-        entry1.setCategoryId(entry.getCategoryId());
-        list.add(entry1);
-        return ResponseEntity.status(HttpStatus.CREATED).body(list);
-      }
+
+    @Autowired
+    private EntryRepository repository;
+
+    @PostMapping("/create")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Entry create(@RequestBody Entry entry){
+        return repository.save(entry);
+    }
+    @GetMapping(path = {"/read_paid"})
+    public List findAllPaids(){
+        return repository.findByPaidTrue();
+    }
+
+    @GetMapping(path = {"/read_not_paid"})
+    public List findAllNotPaids(){
+        return repository.findByPaidFalse();
+    }
+
+    @GetMapping(path = {"/read"})
+    public List findAll(){
+        return repository.findAll();
+    }
+
+    @GetMapping(path = {"/read/{id}"})
+    public Optional<Entry> findById(@PathVariable("id") Long id) {
+        return repository.findById(id);
+    }
+
+    @PutMapping(value="/update/{id}")
+    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody Entry entry) {
+        return repository.findById(id)
+                .map(record -> {
+                    record.setId(entry.getId());
+                    record.setName(entry.getName());
+                    record.setDescription(entry.getDescription());
+                    record.setType(entry.getType());
+                    record.setAmount(entry.getAmount());
+                    record.setDate(entry.getDate());
+                    record.setPaid(entry.getPaid());
+                    Entry updated = repository.save(record);
+                    return ResponseEntity.ok().body(updated);})
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable("id") Long id) {
+        repository.deleteById(id);
+    }
 }

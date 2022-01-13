@@ -111,3 +111,26 @@ Referências:
 - https://www.redhat.com/pt-br/topics/api/what-is-a-rest-api
 - https://dev.to/rs_marinheiro/documente-sua-api-springboot-com-swagger-cni
 
+#Desafio 4
+
+# 📑 Repository
+
+## ✔ I. O que é JDBC?
+
+É uma tecnologia usada na implementação do banco de dados.JDBC é uma API de nível de chamada, o que significa que as instruções SQL são transmitidas como sequências para a API, outra vantagem de um programa JDBC é que é bastante móvel e pode ser levado entre diferentes sistemas, com gastos mínimos.
+
+## ✔ II. O que é ORM, cite 3 exemplos?
+
+É tecnica de manipulação e consulta do banco de dados, através da programação orientada a objetos, também é uma biblioteca, uma framework que implementa o caminho do objeto relacional, seu mapeamento. 3 exemplos são Hibernate, NHibernate, Entity.
+
+## ✔ III. O que é JPA e qual é a sua relação com os ORM’s?
+
+O JPA(Java Persistence) é uma framework de espercificação para persistir objetos Java, diferente de ORM(Mapeamento Objeto-Relacional) que apenas é conceito geral. o JPA complementa o ORM, dizendo exatamente de que forma ele pode ser implementado nas aplicações, decidindo qual ferramenta usar.
+
+## ✔ IV. O que é Spring Data?
+
+O spring Data é uma funcionalidade usada para facilitar a vida do programador, deixando a consistente e familiar, ela age de forma ainda mais facilitadora na área de acesso ao banco de dados, serviços de nuvem e entre outros, existem diversos spring data que dar suporte de varias maneiras, é uma framework bastante utilizada.
+
+## ✔ O que caracteriza um projeto “CRUD básico”?
+
+É um projeto que tem as 4 operações básicas em informações amarzenadas em bancos de dados, Create, Read, Update e Delete CRUD, são essas operações básicas que geram quase tudo nas aplicações, por isso muito importantes.
