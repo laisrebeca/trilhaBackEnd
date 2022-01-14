@@ -134,3 +134,25 @@ O spring Data é uma funcionalidade usada para facilitar a vida do programador, 
 ## ✔ O que caracteriza um projeto “CRUD básico”?
 
 É um projeto que tem as 4 operações básicas em informações amarzenadas em bancos de dados, Create, Read, Update e Delete CRUD, são essas operações básicas que geram quase tudo nas aplicações, por isso muito importantes.
+
+# Desafio 5
+
+# 📑 Service
+
+## ✔ Entity:
+No português significa entidades, podemos dizer que ela é início de tudo, a classe principal que tem relacionamento com os outros pacotes, em um artigo de Peter Chen ele definiu uma entidade como “coisas que possuem atributos e relacionamentos”.  História da Entidade é bem antiga na programação, para ser considerada uma entidade é preciso ela ser acessível, ela obtém o objeto principal de quase toda a aplicação, é lá onde os construtores, e os métodos getters e setters acontecem, sem falar que em Java para uma classe se tornar entidade é preciso da anotação @Entity outra anotação importante que consiste em que uma classe se torne uma entity é @Id, que indica que é uma chave primaria e que é a unidade persistente de uma entidade.
+ 
+## ✔ Controller:
+Em português o seu nome é controladora, é classe onde acontece muita coisa, basicamente ela controla realmente quase toda aplicação, toda requisição que existe na aplicação passa pela controller, é responsável por mostrar o que está acontecendo dentro da aplicação é mais visível com a controller a entrada da logica do programador com a saída do que está na aplicação está retornando, é por lá que vemos essa conexão entre programa e programador.
+
+## ✔ Repository: 
+
+
+## ✔ Service:
+
+
+Referências:
+
+- https://www.devmedia.com.br/padrao-mvc-java-magazine/21995
+
+- https://www.devmedia.com.br/definindo-entidades-na-java-persistence-api/28180
