@@ -27,8 +27,20 @@ public class Entry  {
 
 
     @ManyToOne
-    @JoinColumn(name = "category", referencedColumnName = "id")
-    private Category category;
+    @JoinColumn(name = "categoryId", referencedColumnName = "id")
+    private Category categoryId;
+
+
+    public Entry(Long id, String name, String description, String type, String amount, String date, Boolean paid, Category categoryId) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.amount = amount;
+        this.date = date;
+        this.paid = paid;
+        this.categoryId = categoryId;
+    }
 
     public Long getId() {
         return id;
@@ -86,25 +98,12 @@ public class Entry  {
         this.paid = paid;
     }
 
-    public Category getCategory() {
-        return category;
+    public Category getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Entry(Long id, String name, String description, String type,
-                 String amount, String date, Boolean paid, Category category) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.type = type;
-        this.amount = amount;
-        this.date = date;
-        this.paid = paid;
-        this.category = category;
-
+    public void setCategoryId(Category categoryId) {
+        this.categoryId = categoryId;
     }
 
     public Entry() {
@@ -112,13 +111,15 @@ public class Entry  {
 
     @Override
     public String toString() {
-        return "Entry { " + "id = " + id +
-                ", name = " + name +
-                ", description = " + description +
-                ", type = " + type +
-                ", amount = " + amount +
-                ", date = " + date +
-                ", paid = " + paid + " } \n";
+        return "Entry{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", type='" + type + '\'' +
+                ", amount='" + amount + '\'' +
+                ", date='" + date + '\'' +
+                ", paid=" + paid +
+                ", categoryId=" + categoryId +
+                '}';
     }
-
 }

@@ -23,7 +23,7 @@ public class Category {
     @Column(name= "description", nullable = false)
     private String description;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "categoryId")
     @JsonIgnore
     private List<Entry> entries;
 
