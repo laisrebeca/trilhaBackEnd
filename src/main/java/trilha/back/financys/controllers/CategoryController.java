@@ -39,9 +39,9 @@ public class CategoryController {
 
     @PutMapping(value = "/update/{id}")
     public ResponseEntity<Category> update(@PathVariable Long id, @RequestBody Category body){
-        Category aux = service.findById(id);
-        BeanUtils.copyProperties(body,aux,"id");
-        service.save(aux);
+        Category category = service.findById(id);
+        BeanUtils.copyProperties(body,category,"id");
+        service.save(category);
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
     @DeleteMapping("/delete/{id}")
