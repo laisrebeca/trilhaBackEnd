@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "CATEGORY")
-public class Category {
+public class CategoriaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
@@ -25,10 +25,10 @@ public class Category {
 
     @OneToMany(mappedBy = "categoryId")
     @JsonIgnore
-    private List<Entry> entries;
+    private List<LançamentoEntity> entries;
 
 
-    public Category(Long id, String name, String description) {
+    public CategoriaEntity(Long id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -59,15 +59,15 @@ public class Category {
         this.description = description;
     }
 
-    public List<Entry> getEntries() {
+    public List<LançamentoEntity> getEntries() {
         return entries;
     }
 
-    public void setEntries(List<Entry> entries) {
+    public void setEntries(List<LançamentoEntity> entries) {
         this.entries = entries;
     }
 
-    public Category() {
+    public CategoriaEntity() {
 
     }
 

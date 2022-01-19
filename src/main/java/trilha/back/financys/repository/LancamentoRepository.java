@@ -7,7 +7,7 @@ import trilha.back.financys.entities.LançamentoEntity;
 import java.util.List;
 
 @Repository
-public interface EntryRepository extends JpaRepository <LançamentoEntity, Long> {
+public interface LancamentoRepository extends JpaRepository <LançamentoEntity, Long> {
 
     List findByPaidTrue();
 

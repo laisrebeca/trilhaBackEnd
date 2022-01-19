@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import trilha.back.financys.entities.LançamentoEntity;
-import trilha.back.financys.repository.EntryRepository;
+import trilha.back.financys.repository.LancamentoRepository;
 import trilha.back.financys.services.EntryService;
 
 import java.util.*;
@@ -13,12 +13,12 @@ import java.util.*;
 
 @RestController
 @RequestMapping("entry")
-public class EntryController {
+public class LancamentoController {
 
     @Autowired
     private EntryService service;
     @Autowired
-    private EntryRepository repository;
+    private LancamentoRepository repository;
 
     @GetMapping(path = {"/read"})
     @ResponseStatus(HttpStatus.OK)
@@ -52,12 +52,12 @@ public class EntryController {
 
     @GetMapping(path = {"/read_paid"})
     public List findAllPaids() {
-        return repository.findByPaidTrue();
+        return service.findByPaidTrue();
     }
 
     @GetMapping(path = {"/read_not_paid"})
     public List findAllNotPaids() {
-        return repository.findByPaidFalse();
+        return service.findByPaidFalse();
     }
 
 

@@ -1,10 +1,9 @@
 package trilha.back.financys.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import trilha.back.financys.entities.Category;
-import trilha.back.financys.repository.CategoryRepository;
+import trilha.back.financys.entities.CategoriaEntity;
+import trilha.back.financys.repository.CategoriaRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,26 +14,27 @@ import java.util.List;
 public class CategoryService {
     
     @Autowired
-    private CategoryRepository repository;
+    private CategoriaRepository repository;
 
-    public List<Category> getAll() {
+    public List<CategoriaEntity> getAll() {
         return new ArrayList<>(repository.findAll());
     }
-    public long idCategoryByName(String nameCategory) {
-        ArrayList<Category> result = repository.findByName(nameCategory);
-        return result.isEmpty() ? 0 : result.get(0).getId();
-    }
-    public void save(Category category){
-        repository.save(category);
-    }
-    public List<Category> findAll(){
-        List<Category> category =repository.findAll();
-        return category;
-    }
-    public Category findById(long id){
+
+    public CategoriaEntity findById(Long id){
         return repository.findById(id).get();
     }
-    public void deleteById(long id){
+
+
+    public CategoriaEntity save(CategoriaEntity entity) {
+        return repository.save(entity);
+    }
+
+    public CategoriaEntity update(CategoriaEntity category){
+        return repository.save(category);
+    }
+
+
+    public void deleteById(Long id){
         repository.deleteById(id);
     }
 

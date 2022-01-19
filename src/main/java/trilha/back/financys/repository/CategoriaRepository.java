@@ -7,7 +7,7 @@ import trilha.back.financys.entities.CategoriaEntity;
 import java.util.ArrayList;
 
 @Repository
-public interface CategoryRepository extends JpaRepository <CategoriaEntity, Long> {
+public interface CategoriaRepository extends JpaRepository <CategoriaEntity, Long> {
 
     ArrayList<CategoriaEntity> findByName(String nameCategory);
 }

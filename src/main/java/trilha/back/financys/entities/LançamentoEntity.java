@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "ENTRY")
-public class Entry  {
+public class LançamentoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +28,10 @@ public class Entry  {
 
     @ManyToOne
     @JoinColumn(name = "categoryId", referencedColumnName = "id")
-    private Category categoryId;
+    private CategoriaEntity categoryId;
 
 
-    public Entry(Long id, String name, String description, String type, String amount, String date, Boolean paid, Category categoryId) {
+    public LançamentoEntity(Long id, String name, String description, String type, String amount, String date, Boolean paid, CategoriaEntity categoryId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -98,15 +98,15 @@ public class Entry  {
         this.paid = paid;
     }
 
-    public Category getCategoryId() {
+    public CategoriaEntity getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Category categoryId) {
+    public void setCategoryId(CategoriaEntity categoryId) {
         this.categoryId = categoryId;
     }
 
-    public Entry() {
+    public LançamentoEntity() {
     }
 
     @Override
