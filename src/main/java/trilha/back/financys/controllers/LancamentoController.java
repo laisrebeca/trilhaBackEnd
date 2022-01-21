@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import trilha.back.financys.entities.LançamentoEntity;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import trilha.back.financys.entities.CategoriaEntity;
+import trilha.back.financys.entities.LancamentoEntity;
 import trilha.back.financys.repository.LancamentoRepository;
-import trilha.back.financys.services.EntryService;
+import trilha.back.financys.services.LacamentoService;
 
+import java.net.URI;
 import java.util.*;
 
 
@@ -16,24 +19,27 @@ import java.util.*;
 public class LancamentoController {
 
     @Autowired
-    private EntryService service;
+    private LacamentoService service;
     @Autowired
     private LancamentoRepository repository;
 
-    @GetMapping(path = {"/read"})
+    @GetMapping("/getAll")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<LançamentoEntity>> getAll() {
+    public ResponseEntity<List<LancamentoEntity>> getAll() {
         return ResponseEntity.ok().body(service.getAll());
     }
 
-    @GetMapping(path = "/read/{id}")
-    public LançamentoEntity findById(@PathVariable Long id) {
+    @GetMapping(path = "/getAll/{id}")
+    public LancamentoEntity findById(@PathVariable Long id) {
         return service.findById(id);
     }
 
     @PostMapping("/save")
-    public LançamentoEntity save(@RequestBody LançamentoEntity entity){
-        return ResponseEntity.ok().body(service.save(entity)).getBody();
+    public ResponseEntity<Void> save(@RequestBody LancamentoEntity entity) {
+        entity = service.save(entity);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(entity.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
 
@@ -43,22 +49,11 @@ public class LancamentoController {
         ResponseEntity.status(HttpStatus.OK).body(id).getBody();
     }
 
-
-    @PutMapping(value = "/update/{id}")
-    public ResponseEntity<LançamentoEntity> update(@PathVariable("id") Long id, @RequestBody LançamentoEntity entry) {
-        entry = service.update(entry);
-        return ResponseEntity.noContent().build();
+    @PutMapping(value = "/updateById/{id}")
+    public void updateById(@PathVariable Long id, @RequestBody LancamentoEntity entity) {
+        service.save(entity);
     }
 
-    @GetMapping(path = {"/read_paid"})
-    public List findAllPaids() {
-        return service.findByPaidTrue();
-    }
-
-    @GetMapping(path = {"/read_not_paid"})
-    public List findAllNotPaids() {
-        return service.findByPaidFalse();
-    }
 
 
 }

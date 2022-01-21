@@ -9,9 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 @Service
-public class CategoryService {
+public class CategoriaService {
     
     @Autowired
     private CategoriaRepository repository;
@@ -26,14 +25,15 @@ public class CategoryService {
 
 
     public CategoriaEntity save(CategoriaEntity entity) {
+       entity.setId(null);
+       return repository.save(entity);
+    }
+
+    public CategoriaEntity updateById(CategoriaEntity entity) {
+        findById(entity.getId());
         return repository.save(entity);
+
     }
-
-    public CategoriaEntity update(CategoriaEntity category){
-        return repository.save(category);
-    }
-
-
     public void deleteById(Long id){
         repository.deleteById(id);
     }
