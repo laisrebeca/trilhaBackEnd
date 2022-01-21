@@ -1,12 +1,14 @@
 package trilha.back.financys.services;
 
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import trilha.back.financys.DTO.LancamentoDTO;
 import trilha.back.financys.entities.LancamentoEntity;
 import trilha.back.financys.repository.LancamentoRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,11 +17,13 @@ public class LacamentoService {
 
     @Autowired
     private LancamentoRepository repository;
+    @Autowired
+    private ModelMapper mapper;
 
 
     public List<LancamentoEntity> getAll() {
-        return new ArrayList<>(repository.findAll());
-    }
+            return repository.findAll();
+        }
 
 
     public LancamentoEntity findById(Long id) {
@@ -36,7 +40,11 @@ public class LacamentoService {
         repository.deleteById(id);
     }
 
-    public void updateById(LancamentoEntity entity) {
-        repository.save(entity);
+    public ResponseEntity<LancamentoEntity> updateById(Long id, LancamentoDTO dto) {
+       LancamentoEntity lacamentoAtualizada = repository.findById(id).orElseThrow();
+        lacamentoAtualizada.setName(dto.getName());
+        lacamentoAtualizada.setDescription(dto.getDescription());
+        return ResponseEntity.ok().body(repository.save(lacamentoAtualizada));
+
     }
 }

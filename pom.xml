@@ -97,7 +97,26 @@
             <artifactId>jaxb-runtime</artifactId>
             <version>2.3.5</version>
         </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>pl.wavesoftware.utils</groupId>
+			<artifactId>mapstruct-jpa</artifactId>
+			<version>0.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.xmlunit</groupId>
+			<artifactId>xmlunit-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>trilha.back</groupId>
+			<artifactId>financys</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>1.4.2.Final</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>

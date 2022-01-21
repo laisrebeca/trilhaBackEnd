@@ -149,11 +149,19 @@ Em português o seu nome é controladora, é classe onde acontece muita coisa, b
 É responsável pela interface, pela relação entre API e o Banco de Dados, ela gerencia também a pesquisa de objetos de domínio entre a camada de domínio e a camada de mapeamento de dados, se parece com um filtro de informações, em cada camada, ele recebe um objeto com a especificação da pesquisa e retorna uma coleção com os objetos de domínio que satisfazem essa pesquisa. A sua anotação é @Repository. 
 
 ## ✔ Service:
-É a camada responsável pelas operações de négocio a API, ela pode resgistrar, salvar, verificar, baixar, ela executa várias funções. 
-
+É a camada responsável pelas operações de négocio a API, ela pode resgistrar, salvar, verificar, baixar, ela executa várias funções.
 
 Referências:
 
 - https://www.devmedia.com.br/padrao-mvc-java-magazine/21995
 
 - https://www.devmedia.com.br/definindo-entidades-na-java-persistence-api/28180
+# Desafio 6 
+
+# 📑 DTO:
+
+## ✔ O que significa DTO, e qual sua importância?
+Objeto de Transferência de Dados (do inglês, Data transfer object, ou simplesmente DTO).
+É um camada do Spring boot responsável pela transferência de dados, é a mesma coisa das entidades, porém é apenas com os dados necessários de a acordo a ação que o usuário pode ter, isso assegura que um usuário não altere ou tenha acesso as informações que são confidenciais, a falta dos DTO’s em uma API pode causar consequências graves, de invasão de sistemas. É um simples objeto de transferência que tem grande importância porque é uma maneira de proteção rápida e muito segura. O ModelMapper é fundamental para que os DTO’s funcionem, é maneira de mapear o caminho que o DTO precisa trilhar.
+
+

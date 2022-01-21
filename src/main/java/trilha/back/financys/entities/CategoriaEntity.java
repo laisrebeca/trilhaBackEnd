@@ -2,6 +2,7 @@ package trilha.back.financys.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import trilha.back.financys.DTO.CategoriaDTO;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name = "category")
+@Table(name = "categoroias")
 public class CategoriaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,5 +35,8 @@ public class CategoriaEntity {
     private List<LancamentoEntity> entries;
 
 
+    public CategoriaDTO transformaEmDTO(CategoriaEntity entity) {
+        return new CategoriaDTO(entity.getName(), entity.getDescription());
+    }
 
 }

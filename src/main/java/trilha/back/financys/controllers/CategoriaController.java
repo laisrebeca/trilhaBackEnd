@@ -5,12 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import trilha.back.financys.DTO.CategoriaDTO;
 import trilha.back.financys.entities.CategoriaEntity;
-import trilha.back.financys.entities.LancamentoEntity;
 import trilha.back.financys.services.CategoriaService;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("category")
@@ -20,11 +21,14 @@ public class CategoriaController {
     private CategoriaService service;
 
     @GetMapping(path = {"/getAll"})
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<CategoriaEntity>> getAll(){
-        return ResponseEntity.ok().body(service.getAll());
+    public ResponseEntity<List<CategoriaDTO>> getAll() {
+        List<CategoriaEntity> list = service.getAll();
+        List<CategoriaDTO> ListDto = list.stream().map(obj -> new CategoriaDTO(obj.getName(),
+                obj.getDescription())).collect(Collectors.toList());
+        return ResponseEntity.ok().body(ListDto);
     }
-    @GetMapping(path = {"/getAll/{id}"})
+
+    @GetMapping(path = {"/findById/{id}"})
     public CategoriaEntity findById(@PathVariable Long id) {
         return service.findById(id);
     }
@@ -38,12 +42,12 @@ public class CategoriaController {
     }
 
     @PutMapping(value = "/updateById/{id}")
-    public void updateById(@PathVariable Long id, @RequestBody CategoriaEntity entity) {
-        service.updateById(entity);
-        ResponseEntity.ok().body(entity);
+    public ResponseEntity<CategoriaEntity> updateById(@PathVariable Long id,
+                                                      @RequestBody CategoriaDTO dto) {
+       return ResponseEntity.ok().body(service.updateById(id, dto)).getBody();
     }
     @DeleteMapping("/delete/{id}")
-    public void delete (@PathVariable Long id){
+    public void deleteById(@PathVariable Long id){
         service.deleteById(id);
         ResponseEntity.status(HttpStatus.OK).body(id).getBody();
     }

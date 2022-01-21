@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import trilha.back.financys.DTO.CategoriaDTO;
+import trilha.back.financys.DTO.LancamentoDTO;
 import trilha.back.financys.entities.CategoriaEntity;
 import trilha.back.financys.entities.LancamentoEntity;
 import trilha.back.financys.repository.LancamentoRepository;
@@ -12,6 +14,7 @@ import trilha.back.financys.services.LacamentoService;
 
 import java.net.URI;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -20,13 +23,13 @@ public class LancamentoController {
 
     @Autowired
     private LacamentoService service;
-    @Autowired
-    private LancamentoRepository repository;
 
     @GetMapping("/getAll")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<LancamentoEntity>> getAll() {
-        return ResponseEntity.ok().body(service.getAll());
+    public ResponseEntity<List<LancamentoDTO>> getAll() {
+        List<LancamentoEntity> list = service.getAll();
+        List<LancamentoDTO> ListDto = list.stream().map(lancamentoEntity -> new LancamentoDTO(lancamentoEntity.getName(),
+                lancamentoEntity.getDescription(),lancamentoEntity.getAmount(),lancamentoEntity.getDate(),lancamentoEntity.getPaid())).collect(Collectors.toList());
+        return ResponseEntity.ok().body(ListDto);
     }
 
     @GetMapping(path = "/getAll/{id}")
@@ -50,11 +53,10 @@ public class LancamentoController {
     }
 
     @PutMapping(value = "/updateById/{id}")
-    public void updateById(@PathVariable Long id, @RequestBody LancamentoEntity entity) {
-        service.save(entity);
+    public ResponseEntity<LancamentoEntity> updateById(@PathVariable Long id,
+                                                        @RequestBody LancamentoDTO dto) {
+        return ResponseEntity.ok().body(service.updateById(id, dto)).getBody();
     }
-
-
 
 }
 
