@@ -1,4 +1,4 @@
-package trilha.back.financys.DTO;
+package trilha.back.financys.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,15 +11,12 @@ import trilha.back.financys.entities.CategoriaEntity;
 @NoArgsConstructor
 @Builder
 
-public class LancamentoDTO {
+public class LancamentoDto {
     private String name;
     private String date;
     private String amount;
     private String description;
     private String paid;
+    private String type;
     private CategoriaEntity categoryId;
-
-
-    public LancamentoDTO(String name, String description, String amount, String date, Boolean paid) {
-    }
 }

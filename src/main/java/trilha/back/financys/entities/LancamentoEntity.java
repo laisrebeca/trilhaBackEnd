@@ -1,8 +1,7 @@
 package trilha.back.financys.entities;
 
 import lombok.*;
-import trilha.back.financys.DTO.CategoriaDTO;
-import trilha.back.financys.DTO.LancamentoDTO;
+import trilha.back.financys.dto.LancamentoDto;
 
 import javax.persistence.*;
 
@@ -12,8 +11,7 @@ import javax.persistence.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Table(name = "Lancamentos")
+@Table(name = "lancamentos")
 public class LancamentoEntity {
 
     @Id
@@ -45,8 +43,5 @@ public class LancamentoEntity {
     @JoinColumn(name = "categoryId", referencedColumnName = "id")
     private CategoriaEntity categoryId;
 
-    public LancamentoDTO transformaEmDTO(LancamentoEntity lancamentoEntity) {
-        return new LancamentoDTO(lancamentoEntity.getName(), lancamentoEntity.getDescription(),
-                lancamentoEntity.getAmount(), lancamentoEntity.getDate(), lancamentoEntity.getPaid());
-    }
+
 }

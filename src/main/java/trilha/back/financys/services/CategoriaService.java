@@ -1,40 +1,50 @@
 package trilha.back.financys.services;
 
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.jboss.logging.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import trilha.back.financys.DTO.CategoriaDTO;
+import trilha.back.financys.dto.CategoriaDto;
 import trilha.back.financys.entities.CategoriaEntity;
+import trilha.back.financys.entities.LancamentoEntity;
 import trilha.back.financys.repository.CategoriaRepository;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class CategoriaService {
-    
+    private static final Logger log = LoggerFactory.logger(CategoriaService.class);
     @Autowired
-    private CategoriaRepository repository;
+    private final CategoriaRepository repository;
     @Autowired
-    private ModelMapper mapper;
+    private final ModelMapper modelMapper;
+
+    public CategoriaService(CategoriaRepository repository, ModelMapper modelMapper) {
+        this.repository = repository;
+        this.modelMapper = modelMapper;
+    }
+
+    public CategoriaEntity save(CategoriaDto dto) {
+        return repository.save(mapToEntity(dto));
+    }
 
     public List<CategoriaEntity> getAll() {
-       return repository.findAll();
+        return ResponseEntity.ok().body(repository.findAll()).getBody();
+    }
+    public CategoriaEntity findById(Long id) {
+        Optional<CategoriaEntity> entity = repository.findById(id);
+        if (entity.isEmpty()) {
+            log.error("id could not be found");
+        }
+        return repository.getById(id);
+
     }
 
-    public CategoriaEntity findById(Long id){
-        return repository.findById(id).get();
-    }
 
-
-    public CategoriaEntity save(CategoriaEntity entity) {
-        entity.setId(null);
-        return repository.save(entity);
-    }
-
-    public ResponseEntity<CategoriaEntity> updateById(Long id,CategoriaDTO dto) {
+    public ResponseEntity<CategoriaEntity> updateById(Long id, CategoriaDto dto) {
         CategoriaEntity categoriaAtualizada = repository.findById(id).orElseThrow();
         categoriaAtualizada.setName(dto.getName());
         categoriaAtualizada.setDescription(dto.getDescription());
@@ -44,7 +54,9 @@ public class CategoriaService {
     public void deleteById(Long id){
         repository.deleteById(id);
     }
-
+    private CategoriaEntity mapToEntity( CategoriaDto dto){
+        return modelMapper.map(dto,CategoriaEntity.class );
+    }
 
 }
 
