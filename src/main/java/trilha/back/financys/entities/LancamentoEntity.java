@@ -1,9 +1,12 @@
 package trilha.back.financys.entities;
 
-import lombok.*;
-import trilha.back.financys.dto.LancamentoDto;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 
 @Entity
@@ -16,32 +19,29 @@ public class LancamentoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "name", nullable = false, length = 50)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "description", nullable = false, length = 100)
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "type", nullable = false, length = 15)
+    @Column(name = "type")
     private String type;
 
-    @Column(name = "amount", nullable = false)
-    private String amount;
+    @Column(name = "amount")
+    private Double amount;
 
-    @Column(name = "date", nullable = false, length = 10)
+    @Column(name = "date")
     private String date;
 
-    @Column(name = "paid", nullable = false)
+    @Column(name = "paid")
     private Boolean paid;
-
 
     @ManyToOne
     @JoinColumn(name = "categoryId", referencedColumnName = "id")
     private CategoriaEntity categoryId;
-
 
 }

@@ -7,11 +7,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import trilha.back.financys.dto.ChartDto;
 import trilha.back.financys.dto.LancamentoDto;
-
+import trilha.back.financys.entities.CategoriaEntity;
 import trilha.back.financys.entities.LancamentoEntity;
+import trilha.back.financys.repository.CategoriaRepository;
 import trilha.back.financys.repository.LancamentoRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +25,8 @@ public class LacamentoService {
     private LancamentoRepository repository;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private CategoriaRepository categoriaRepository;
 
     public LacamentoService(LancamentoRepository repository, ModelMapper modelMapper) {
         this.repository = repository;
@@ -45,19 +50,67 @@ public class LacamentoService {
         return repository.save(mapToEntity(dto));
     }
 
-    public void deleteById(Long id) {
-        repository.deleteById(id);
-    }
-
     public ResponseEntity<LancamentoEntity> updateById(Long id, LancamentoDto dto) {
        LancamentoEntity lacamentoAtualizada = repository.findById(id).orElseThrow();
         lacamentoAtualizada.setName(dto.getName());
         lacamentoAtualizada.setDescription(dto.getDescription());
+        lacamentoAtualizada.setAmount(dto.getAmount());
+        lacamentoAtualizada.setPaid(dto.getPaid());
+        lacamentoAtualizada.setDate(dto.getDate());
+        lacamentoAtualizada.setType(dto.getType());
         return ResponseEntity.ok().body(repository.save(lacamentoAtualizada));
 
     }
 
     private LancamentoEntity mapToEntity(LancamentoDto dto){
         return modelMapper.map(dto,LancamentoEntity.class );
+    }
+
+    private LancamentoDto mapToDto(LancamentoEntity lancamento) {
+        return modelMapper.map(lancamento,LancamentoDto.class );
+    }
+
+    public boolean categoriaById (Long idCategoria){
+        return categoriaRepository.findById(idCategoria).isPresent();
+    }
+
+
+
+    public void deleteById(Long id){
+        repository.deleteById(id);
+    }
+
+    public List<ChartDto> chartDto() {
+        List<ChartDto> chartDtoList = new ArrayList<ChartDto>();
+        List<CategoriaEntity> categoriaEntityList = categoriaRepository.findAll();
+            for (CategoriaEntity entityCate : categoriaEntityList){
+                ChartDto chartDto = new ChartDto();
+                chartDto.setName(entityCate.getName());
+                chartDto.setTotal(0.0);
+                for (LancamentoEntity entityLanca : entityCate.getEntries()){
+                    chartDto.setType(entityLanca.getType());
+                    if (entityLanca.getType().equals("expense")) {
+                        chartDto.setTotal(chartDto.getTotal() + entityLanca.getAmount());
+                    }
+                }
+        if (chartDto.getTotal() > 0.0) {
+            chartDtoList.add(chartDto);
+        }
+            }
+            for (CategoriaEntity entityCate: categoriaEntityList) {
+                ChartDto chartDto = new ChartDto();
+                chartDto.setName(entityCate.getName());
+                chartDto.setTotal(0.0);
+                for (LancamentoEntity entityLanca: entityCate.getEntries()) {
+                    chartDto.setType(entityLanca.getType());
+                    if (entityLanca.getType().equals("revenue")) {
+                        chartDto.setTotal(chartDto.getTotal() + entityLanca.getAmount());
+                     }
+                }
+        if (chartDto.getTotal() > 0.0) {
+            chartDtoList.add(chartDto);
+        }
+            }
+        return chartDtoList;
     }
 }

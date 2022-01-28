@@ -1,9 +1,10 @@
 package trilha.back.financys.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-import trilha.back.financys.dto.CategoriaDto;
-
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,13 +18,13 @@ import java.util.List;
 public class CategoriaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name= "id", nullable= false)
+    @Column(name= "id")
     private Long id;
 
-    @Column(name= "name", nullable = false)
+    @Column(name= "name")
     private String name;
 
-    @Column(name= "description", nullable = false)
+    @Column(name= "description")
     private String description;
 
     @OneToMany(mappedBy = "categoryId")

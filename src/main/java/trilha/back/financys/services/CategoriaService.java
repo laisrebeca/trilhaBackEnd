@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import trilha.back.financys.dto.CategoriaDto;
 import trilha.back.financys.entities.CategoriaEntity;
-import trilha.back.financys.entities.LancamentoEntity;
 import trilha.back.financys.repository.CategoriaRepository;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +41,6 @@ public class CategoriaService {
         return repository.getById(id);
 
     }
-
 
     public ResponseEntity<CategoriaEntity> updateById(Long id, CategoriaDto dto) {
         CategoriaEntity categoriaAtualizada = repository.findById(id).orElseThrow();

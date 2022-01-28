@@ -107,11 +107,6 @@
 			<artifactId>xmlunit-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>trilha.back</groupId>
-			<artifactId>financys</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
 			<version>1.4.2.Final</version>

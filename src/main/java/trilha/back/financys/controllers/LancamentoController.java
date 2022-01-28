@@ -1,13 +1,16 @@
 package trilha.back.financys.controllers;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import trilha.back.financys.dto.ChartDto;
 import trilha.back.financys.dto.LancamentoDto;
 import trilha.back.financys.entities.LancamentoEntity;
 import trilha.back.financys.services.LacamentoService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -19,31 +22,40 @@ public class LancamentoController {
     private LacamentoService service;
 
     @GetMapping("/getAll")
+    @ApiOperation(value = "Ler todos os Lançamentos")
     public List<LancamentoEntity>  getAll() {
         return ResponseEntity.ok().body(service.getAll()).getBody();
     }
 
     @GetMapping(path = "/getAll/{id}")
+    @ApiOperation(value = "Ler os Lançamentos Através do ID")
     public LancamentoEntity findById(@PathVariable Long id) {
         return service.findById(id);
     }
 
     @PostMapping("/save")
-    public  LancamentoEntity save(@RequestBody LancamentoDto dto){
+    @ApiOperation(value = "Salva um Lançamento")
+    public LancamentoEntity save(@RequestBody @Valid LancamentoDto dto){
         return service.save(dto);
     }
 
     @DeleteMapping("/delete/{id}")
+    @ApiOperation(value = "Deleta a Lançamento Pelo ID")
     public void delete(@PathVariable Long id){
         service.deleteById(id);
         ResponseEntity.status(HttpStatus.OK).body(id).getBody();
     }
 
     @PutMapping(value = "/updateById/{id}")
-    public ResponseEntity<LancamentoEntity> updateById(@PathVariable Long id,
-                                                        @RequestBody LancamentoDto dto) {
+    @ApiOperation(value = "Atualiza o Lançamento pelo ID")
+    public ResponseEntity<LancamentoEntity> updateById(@PathVariable Long id, @RequestBody @Valid LancamentoDto dto) {
         return ResponseEntity.ok().body(service.updateById(id, dto)).getBody();
     }
+
+    @GetMapping(path = "/ChartDto")
+    public List<ChartDto> chartDto(){
+            return service.chartDto();
+        }
 
 }
 
