@@ -164,4 +164,11 @@ Referências:
 Objeto de Transferência de Dados (do inglês, Data transfer object, ou simplesmente DTO).
 É um camada do Spring boot responsável pela transferência de dados, é a mesma coisa das entidades, porém é apenas com os dados necessários de a acordo a ação que o usuário pode ter, isso assegura que um usuário não altere ou tenha acesso as informações que são confidenciais, a falta dos DTO’s em uma API pode causar consequências graves, de invasão de sistemas. É um simples objeto de transferência que tem grande importância porque é uma maneira de proteção rápida e muito segura. O ModelMapper é fundamental para que os DTO’s funcionem, é maneira de mapear o caminho que o DTO precisa trilhar.
 
+# Desafio 7
 
+# 📑 Validação de Dados
+
+Nesse desafio validamos os dados, e limitamos a forma que ele vai ser preenchido pelo clinte, assegurando que as informações que serão salvas são importantes. 
+
+## Stream 
+Ela facilita a forma do desenvolvedor manipular as listas ou algo do tipo, existem varios jeitos de retornar uma stream, é basicamente uma transmissão, e essa transmissão mostra apenas o que é solicitado. Tem como retornar se for números de modo crescente ou decrescente, pode ser filtrada e retornada de acordo a condição, pode ser mapeada, retornando só falsos ou verdadeiros, entre tantos outros modos de desenvolver.
