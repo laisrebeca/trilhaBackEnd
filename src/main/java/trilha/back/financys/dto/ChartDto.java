@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Data
 public class ChartDto {
-    private String name;
+    private String nameChartDto;
     private String type;
     private Double total;
 }

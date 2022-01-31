@@ -46,11 +46,19 @@ public class LacamentoService {
 
     }
 
+    public List findByPaidTrue() {
+        return repository.findByPaidTrue();
+    }
+
+    public List findByPaidFalse() {
+        return repository.findByPaidFalse();
+    }
+
     public LancamentoEntity save(LancamentoDto dto) {
         return repository.save(mapToEntity(dto));
     }
 
-    public ResponseEntity<LancamentoEntity> updateById(Long id, LancamentoDto dto) {
+        public ResponseEntity<LancamentoEntity> updateById(Long id, LancamentoDto dto) {
        LancamentoEntity lacamentoAtualizada = repository.findById(id).orElseThrow();
         lacamentoAtualizada.setName(dto.getName());
         lacamentoAtualizada.setDescription(dto.getDescription());
@@ -62,55 +70,35 @@ public class LacamentoService {
 
     }
 
-    private LancamentoEntity mapToEntity(LancamentoDto dto){
-        return modelMapper.map(dto,LancamentoEntity.class );
-    }
-
-    private LancamentoDto mapToDto(LancamentoEntity lancamento) {
-        return modelMapper.map(lancamento,LancamentoDto.class );
-    }
-
     public boolean categoriaById (Long idCategoria){
         return categoriaRepository.findById(idCategoria).isPresent();
     }
-
-
 
     public void deleteById(Long id){
         repository.deleteById(id);
     }
 
     public List<ChartDto> chartDto() {
-        List<ChartDto> chartDtoList = new ArrayList<ChartDto>();
-        List<CategoriaEntity> categoriaEntityList = categoriaRepository.findAll();
-            for (CategoriaEntity entityCate : categoriaEntityList){
-                ChartDto chartDto = new ChartDto();
-                chartDto.setName(entityCate.getName());
-                chartDto.setTotal(0.0);
-                for (LancamentoEntity entityLanca : entityCate.getEntries()){
-                    chartDto.setType(entityLanca.getType());
-                    if (entityLanca.getType().equals("expense")) {
-                        chartDto.setTotal(chartDto.getTotal() + entityLanca.getAmount());
+        List<LancamentoEntity> listLancamento = repository.findAll();
+        List<ChartDto> chartDtoList = new ArrayList<>();
+
+        listLancamento.forEach(lancamento ->
+            chartDtoList.stream().filter(retorno-> retorno.getNameChartDto().equals(lancamento.getName())).findAny()
+            .ifPresentOrElse(
+                    retorno -> {
+                        retorno.setTotal(retorno.getTotal() + lancamento.getAmount());
+                        },
+                    () -> { chartDtoList.add(new ChartDto(lancamento.getName(), lancamento.getType(),lancamento.getAmount()));
                     }
-                }
-        if (chartDto.getTotal() > 0.0) {
-            chartDtoList.add(chartDto);
-        }
-            }
-            for (CategoriaEntity entityCate: categoriaEntityList) {
-                ChartDto chartDto = new ChartDto();
-                chartDto.setName(entityCate.getName());
-                chartDto.setTotal(0.0);
-                for (LancamentoEntity entityLanca: entityCate.getEntries()) {
-                    chartDto.setType(entityLanca.getType());
-                    if (entityLanca.getType().equals("revenue")) {
-                        chartDto.setTotal(chartDto.getTotal() + entityLanca.getAmount());
-                     }
-                }
-        if (chartDto.getTotal() > 0.0) {
-            chartDtoList.add(chartDto);
-        }
-            }
+            ));
         return chartDtoList;
+    }
+
+    private LancamentoEntity mapToEntity(LancamentoDto dto){
+        return modelMapper.map(dto,LancamentoEntity.class );
+    }
+
+    private LancamentoDto mapToDto(LancamentoEntity lancamento) {
+        return modelMapper.map(lancamento,LancamentoDto.class );
     }
 }

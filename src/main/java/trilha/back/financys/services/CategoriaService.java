@@ -56,6 +56,10 @@ public class CategoriaService {
         return modelMapper.map(dto,CategoriaEntity.class );
     }
 
+    public Long CategoryByName(String categoryName){
+        CategoriaEntity getByname = repository.findByName(categoryName);
+        return getByname.getId();
+    }
 }
 
 

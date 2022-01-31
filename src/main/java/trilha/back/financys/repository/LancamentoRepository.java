@@ -8,5 +8,7 @@ import java.util.List;
 
 @Repository
 public interface LancamentoRepository extends JpaRepository <LancamentoEntity, Long> {
+    List findByPaidTrue();
 
+    List findByPaidFalse();
 }
